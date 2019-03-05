@@ -1,65 +1,113 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter,
-  Route
-} from 'react-router-dom';
 import './App.css';
-// import apiKey from './src/config.js';
+import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
+
 
 // Import Components
+import apiKey from './config';
 import Header from './Components/Header';
 import Nav from './Components/Nav';
 import SearchBar from './Components/SearchBar';
 import SearchResults from './Components/SearchResults';
-import NoResults from './Components/NoResults';
-// import Gallery from './Components/Gallery';
+
+const api = apiKey;
 
 
 class App extends Component {
 
-//   constructor() {
-//     super();
-//     this.state = {
-//       pics: [],
-//       loading: true
-//     };
-//   } 
+  constructor() {
+    super();
+    this.state = {
+      pics: [],
+      loading: true
+    };
+  } 
 
-// componentDidMount() {
-//   fetch()
-// }
 
-  // performSearch = (query = 'code' ) => {
-  //   axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
-  //     .then(response => 
+
+  mainSearch = (query = 'piano' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+      .then(response => 
         
-  //       // copied from gif-search workshop. needs change --->
-  //       {
-  //       this.setState({
-  //         gifs: response.data.data,
-  //         loading: false
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.log('Error fetching and parsing data', error);
-  //   });
-  // }
+        {
+        this.setState({
+          mainPics: response.data.data.photo,
+          loading: false
+        });
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data', error);
+    });
+  }
+// I know I propbably should separate these into their own components, 
+//   but I'm still getting used to handling this many files, 
+//     so I'm going to make life easier on myself and keep them all in App.js
+  waffleSearch = (query = 'waffle' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+      .then(response => 
+        
+        {
+        this.setState({
+          wafflePics: response.data.data.photo,
+          loading: false
+        });
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data', error);
+    });
+  }
+
+  ligerSearch = (query = 'liger' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+      .then(response => 
+        
+        {
+        this.setState({
+          ligerPics: response.data.data.photo,
+          loading: false
+        });
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data', error);
+    });
+  }
+
+  donkeySearch = (query = 'donkey' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+      .then(response => 
+        
+        {
+        this.setState({
+          donkeyPics: response.data.data.photo,
+          loading: false
+        });
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data', error);
+    });
+  }
 
 
-
+  componentDidMount() {
+    this.mainSearch();
+    this.waffleSearch();
+    this.ligerSearch();
+    this.donkeySearch();
+  }
 
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <div className="container">
           <Header />
-          <SearchBar />
+          <SearchBar onSearch={this.mainSearch}/>
           <Nav />
-                {/* display seach results here
-                if no search results available, 
-                display an error message */}
-          <SearchResults />
-          <NoResults />
+          {
+          (this.state.loading)
+          ? <p>Loading...</p>
+          : <SearchResults data={this.state.mainPics} />
+        }
         </div> 
       </BrowserRouter>
     );

@@ -1,15 +1,15 @@
 import React from 'react';
-// import SearchBar from './Components/SearchBar';
+import { NavLink } from 'react-router-dom';
 
-const Nav = props => {
+const Nav = () => {
     
     return (
         // Copied from example-index.html
         <nav class="main-nav">
             <ul>
-                <li><a href='#'>Liger</a></li>
-                <li><a href='#'>Donkey</a></li>
-                <li><a href='#'>Waffle</a></li>
+                <li><NavLink to='/liger'>Liger</NavLink></li>
+                <li><NavLink to='/donkey'>Donkey</NavLink></li>
+                <li><NavLink to='/waffle'>Waffle</NavLink></li>
             </ul>
         </nav>
     )
