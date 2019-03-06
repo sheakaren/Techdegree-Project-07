@@ -24,15 +24,20 @@ class App extends Component {
     };
   } 
 
+  componentDidMount() {
+    this.mainSearch();
+    this.waffleSearch();
+    this.ligerSearch();
+    this.donkeySearch();
+  }
 
 
   mainSearch = (query = 'piano' ) => {
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(response => 
-        
         {
         this.setState({
-          mainPics: response.data.data.photo,
+          mainPics: response.data.photos.photo,
           loading: false
         });
       })
@@ -49,7 +54,7 @@ class App extends Component {
         
         {
         this.setState({
-          wafflePics: response.data.data.photo,
+          wafflePics: response.data.photos.photo,
           loading: false
         });
       })
@@ -64,7 +69,7 @@ class App extends Component {
         
         {
         this.setState({
-          ligerPics: response.data.data.photo,
+          ligerPics: response.data.photos.photo,
           loading: false
         });
       })
@@ -79,7 +84,7 @@ class App extends Component {
         
         {
         this.setState({
-          donkeyPics: response.data.data.photo,
+          donkeyPics: response.data.photos.photo,
           loading: false
         });
       })
@@ -89,25 +94,15 @@ class App extends Component {
   }
 
 
-  componentDidMount() {
-    this.mainSearch();
-    this.waffleSearch();
-    this.ligerSearch();
-    this.donkeySearch();
-  }
-
   render() {
+    console.log(this.state.mainPics);
     return (
       <BrowserRouter>
         <div className="container">
           <Header />
           <SearchBar onSearch={this.mainSearch}/>
           <Nav />
-          {
-          (this.state.loading)
-          ? <p>Loading...</p>
-          : <SearchResults data={this.state.mainPics} />
-        }
+          <SearchResults />
         </div> 
       </BrowserRouter>
     );
