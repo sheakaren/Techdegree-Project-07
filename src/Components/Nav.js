@@ -7,9 +7,9 @@ const Nav = () => {
         // Copied from example-index.html
         <nav className="main-nav">
             <ul>
-                <li><NavLink to='/liger'>Liger</NavLink></li>
-                <li><NavLink to='/donkey'>Donkey</NavLink></li>
-                <li><NavLink to='/waffle'>Waffle</NavLink></li>
+                <li><NavLink to='/beer'>Beer</NavLink></li>
+                <li><NavLink to='/wine'>Wine</NavLink></li>
+                <li><NavLink to='/vodka'>Vodka</NavLink></li>
             </ul>
         </nav>
     )

@@ -9,12 +9,12 @@ const SearchResults = (props) => {
         // display an error message */}
     const results = props.data;
     let pics;
-        if (results.length > 0) {
+        if (results) {
             pics = results.map(pic => 
                 <Picture 
                     url={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}
                     key={pic.id} 
-                    // title={pic.title}
+                    title={pic.title}
                     /> );
         } else {
             pics = <NoResults />
@@ -23,7 +23,7 @@ const SearchResults = (props) => {
 
     return(
         <div className="photo-container">
-            <h2>Query</h2>
+            <h2>Search Results</h2>
                 <ul>
                     {pics}
                 </ul>

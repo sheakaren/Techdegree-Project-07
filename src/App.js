@@ -1,8 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-
 
 // Import Components
 import apiKey from './config';
@@ -11,6 +10,7 @@ import Nav from './Components/Nav';
 import SearchBar from './Components/SearchBar';
 import SearchResults from './Components/SearchResults';
 
+// Create a variable to store the API key
 const api = apiKey;
 
 
@@ -26,14 +26,13 @@ class App extends Component {
 
   componentDidMount() {
     this.mainSearch();
-    this.waffleSearch();
-    this.ligerSearch();
-    this.donkeySearch();
+    this.beerSearch();
+    this.wineSearch();
+    this.vodkaSearch();
   }
 
-
-  mainSearch = (query = 'piano' ) => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+  mainSearch = ( query = 'bar' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
       .then(response => 
         {
         this.setState({
@@ -45,16 +44,13 @@ class App extends Component {
         console.log('Error fetching and parsing data', error);
     });
   }
-// I know I propbably should separate these into their own components, 
-//   but I'm still getting used to handling this many files, 
-//     so I'm going to make life easier on myself and keep them all in App.js
-  waffleSearch = (query = 'waffle' ) => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+
+  beerSearch = (query = 'beer' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
       .then(response => 
-        
         {
         this.setState({
-          wafflePics: response.data.photos.photo,
+          beerPics: response.data.photos.photo,
           loading: false
         });
       })
@@ -63,13 +59,12 @@ class App extends Component {
     });
   }
 
-  ligerSearch = (query = 'liger' ) => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+  wineSearch = (query = 'wine' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
       .then(response => 
-        
         {
         this.setState({
-          ligerPics: response.data.photos.photo,
+          winePics: response.data.photos.photo,
           loading: false
         });
       })
@@ -78,13 +73,12 @@ class App extends Component {
     });
   }
 
-  donkeySearch = (query = 'donkey' ) => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+  vodkaSearch = (query = 'vodka' ) => {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
       .then(response => 
-        
         {
         this.setState({
-          donkeyPics: response.data.photos.photo,
+          vodkaPics: response.data.photos.photo,
           loading: false
         });
       })
@@ -92,7 +86,6 @@ class App extends Component {
         console.log('Error fetching and parsing data', error);
     });
   }
-
 
   render() {
     console.log(this.state.mainPics);
@@ -100,9 +93,30 @@ class App extends Component {
       <BrowserRouter>
         <div className="container">
           <Header />
-          <SearchBar onSearch={this.mainSearch}/>
+          <SearchBar searchPhoto={this.mainSearch}/>
           <Nav />
-          <SearchResults />
+          <Switch>
+            <Route exact path = '/' 
+              render = { 
+                () => (this.state.loading) 
+                  ? <p> Loading...</p> 
+                  : <SearchResults data={this.state.mainPics} />} />
+            <Route exact path = '/beer'
+              render = {
+                () => (this.state.loading) 
+                  ? <p> Loading...</p> 
+                  : <SearchResults data={this.state.beerPics} />} /> 
+              <Route exact path = '/wine'
+                render = {
+                  () => (this.state.loading) 
+                    ? <p> Loading...</p> 
+                    : <SearchResults data={this.state.winePics} />} />
+              <Route exact path = '/vodka'
+                render = {
+                  () => (this.state.loading) 
+                    ? <p> Loading...</p> 
+                    : <SearchResults data={this.state.vodkaPics} />} />
+            </Switch>
         </div> 
       </BrowserRouter>
     );

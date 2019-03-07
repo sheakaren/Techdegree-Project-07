@@ -6,6 +6,9 @@ export default class SearchBar extends Component {
       searchText: ''
     }
     
+    onSearchChange = e => {
+      this.setState({ searchText: e.target.value });
+    }
     
     handleSubmit = e => {
       e.preventDefault();
