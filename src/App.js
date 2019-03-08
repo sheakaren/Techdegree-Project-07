@@ -40,9 +40,9 @@ class App extends Component {
           loading: false
         });
       })
-      .catch(error => {
+      .catch(function (error) {
         console.log('Error fetching and parsing data', error);
-    });
+      })
   }
 
   beerSearch = (query = 'beer' ) => {
@@ -54,9 +54,9 @@ class App extends Component {
           loading: false
         });
       })
-      .catch(error => {
+      .catch(function (error) {
         console.log('Error fetching and parsing data', error);
-    });
+      })
   }
 
   wineSearch = (query = 'wine' ) => {
@@ -68,9 +68,9 @@ class App extends Component {
           loading: false
         });
       })
-      .catch(error => {
+      .catch(function (error) {
         console.log('Error fetching and parsing data', error);
-    });
+      })
   }
 
   vodkaSearch = (query = 'vodka' ) => {
@@ -82,9 +82,9 @@ class App extends Component {
           loading: false
         });
       })
-      .catch(error => {
+      .catch(function (error) {
         console.log('Error fetching and parsing data', error);
-    });
+      })
   }
 
   render() {
