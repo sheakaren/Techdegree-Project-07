@@ -88,7 +88,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.mainPics);
+    // console.log(this.state.mainPics);
     return (
       <BrowserRouter>
         <div className="container">
