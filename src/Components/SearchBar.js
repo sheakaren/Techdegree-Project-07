@@ -13,6 +13,9 @@ class SearchBar extends Component {
     handleSubmit = e => {
       e.preventDefault();
       this.props.searchPhoto(this.state.searchText);
+      let searchQuery = this.query;
+      let path = `/search?q=${searchQuery}`;
+      this.props.history.push(path);
       e.currentTarget.reset();
     }
     
