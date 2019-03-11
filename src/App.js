@@ -120,7 +120,7 @@ class App extends Component {
                 render = {
                   () => (this.state.loading) 
                     ? <p> Loading...</p> 
-                    : <SearchResults data={this.state.search} />} />
+                    : <SearchResults data={this.state.results} />} />
             </Switch>
         </div> 
       </BrowserRouter>
