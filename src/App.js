@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 // Import Components
@@ -116,11 +116,11 @@ class App extends Component {
                   () => (this.state.loading) 
                     ? <p> Loading...</p> 
                     : <SearchResults data={this.state.vodkaPics} />} />
-              <Route path = '/search/:query'
+              <Route exact path = '/search'
                 render = {
                   () => (this.state.loading) 
                     ? <p> Loading...</p> 
-                    : <SearchResults data={this.state.mainPics} />} />
+                    : <SearchResults data={this.state.search} />} />
             </Switch>
         </div> 
       </BrowserRouter>

@@ -1,19 +1,23 @@
 import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
+// Big thanks to Gabo (Gabriel Santiago) in the review-my-project channel on Slack for the assistance with how to use withRouter
+// This link was helpful, too: https://stackoverflow.com/questions/53539314/what-is-withrouter-for-in-react-router-dom
 
 class SearchBar extends Component {
   
-    state = {
-      searchText: ''
-    }
-    
+  constructor(props) {
+    super(props);
+    this.state = { searchText: '' };
+  }
+  
     onSearchChange = e => {
       this.setState({ searchText: e.target.value });
     }
     
     handleSubmit = e => {
       e.preventDefault();
-      this.props.searchPhoto(this.state.searchText);
-      let searchQuery = this.query;
+      this.props.searchPhoto(this.query.value, 'search');
+      let searchQuery = this.query.value;
       let path = `/search?q=${searchQuery}`;
       this.props.history.push(path);
       e.currentTarget.reset();
@@ -35,4 +39,4 @@ class SearchBar extends Component {
     }
   }
 
-  export default SearchBar;
+  export default withRouter(SearchBar);
