@@ -116,11 +116,11 @@ class App extends Component {
                   () => (this.state.loading) 
                     ? <p> Loading...</p> 
                     : <SearchResults data={this.state.vodkaPics} />} />
-              <Route exact path = '/search'
+              <Route path = '/search'
                 render = {
                   () => (this.state.loading) 
                     ? <p> Loading...</p> 
-                    : <SearchResults data={this.state.results} />} />
+                    : <SearchResults data={this.state.search} />} />
             </Switch>
         </div> 
       </BrowserRouter>
