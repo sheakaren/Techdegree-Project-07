@@ -31,7 +31,7 @@ class App extends Component {
     this.vodkaSearch();
   }
 
-  mainSearch = ( query = 'bar' ) => {
+  mainSearch = ( query = 'bar') => {
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
       .then(response => 
         {
@@ -120,7 +120,7 @@ class App extends Component {
                 render = {
                   () => (this.state.loading) 
                     ? <p> Loading...</p> 
-                    : <SearchResults data={this.state.search} />} />
+                    : <SearchResults data={this.state.mainPics} />} />
             </Switch>
         </div> 
       </BrowserRouter>
